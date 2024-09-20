@@ -8,6 +8,8 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import org.apache.el.lang.ELArithmetic.BigDecimalDelegate;
+
 import java.io.Serializable;
 
 @Entity
@@ -34,7 +36,15 @@ public class ProductModel implements Serializable {
     }
 
     public void setName (String name){
-        
+        this.name = name;
+    }
+
+    public BigDecimal getValue (){
+        return value;
+    }
+
+    public void setValue (BigDecimal value) {
+        this.value = value;
     }
 
 }

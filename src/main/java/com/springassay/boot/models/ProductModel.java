@@ -8,8 +8,6 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import org.apache.el.lang.ELArithmetic.BigDecimalDelegate;
-
 import java.io.Serializable;
 
 @Entity

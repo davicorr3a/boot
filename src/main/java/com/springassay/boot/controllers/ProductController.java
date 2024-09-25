@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+
 import jakarta.validation.Valid;
 
 
@@ -39,7 +42,14 @@ public class ProductController {
 
         @GetMapping("/products")
         public ResponseEntity<List<ProductModel>> getAllProducts() {
-            return ResponseEntity.status(HttpStatus.OK).body(productRepository.findAll());
+            List<ProductModel> productsList = productRepository.findAll();
+            if (!productsList.isEmpty()) {
+                for (ProductModel product : productsList) {
+                    UUID id = product.getIdProduct();
+                    product.add(linkTo(methodOn(ProductController.class).getOneProduct(id)).withSelfRel());
+                }
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(productsList);
         }
         
         
